@@ -5,12 +5,12 @@ import { fetchAPI, submitAPI } from "../../../utils/api";
 import pages from "../../../utils/page";
 import BookingForm from "./BookingForm";
 
-const updateTimes = (availableTimes, date) => {
+export const updateTimes = (availableTimes, date) => {
   const response = fetchAPI(new Date(date));
   return response.length !== 0 ? response : availableTimes;
 };
 
-const initializeTimes = (initialAvailableTimes) => [
+export const initializeTimes = (initialAvailableTimes) => [
   ...initialAvailableTimes,
   ...fetchAPI(new Date()),
 ];

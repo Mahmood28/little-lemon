@@ -19,6 +19,7 @@ const Header = () => {
           <img src={logoImage} alt="Little Lemon logo" />
         </Link>
         <button
+          aria-label="Toggle navigation"
           className="nav-bar-hamburger"
           type="button"
           onClick={() => setIsNavExpanded(!isNavExpanded)}

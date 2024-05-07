@@ -1,6 +1,22 @@
 import { useState } from "react";
 import FormField from "./FormField";
 
+export const isDateValid = (date) => {
+  const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+  return datePattern.test(date);
+};
+export const isTimeValid = (time) => {
+  const timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+  return timePattern.test(time);
+};
+
+export const isNumberOfGuestsValid = (numberOfGuests) => {
+  return numberOfGuests !== "";
+};
+export const isOccasionValid = (occasion) => {
+  return occasion !== "";
+};
+
 const BookingForm = ({ availableTimes, dispatchOnDateChange, submitData }) => {
   const minimumDate = new Date().toISOString().split("T")[0];
   const defaultTime = availableTimes[0];
@@ -18,16 +34,11 @@ const BookingForm = ({ availableTimes, dispatchOnDateChange, submitData }) => {
   const [numberOfGuests, setNumberGuests] = useState(minimumNumberOfGuests);
   const [occasion, setOccasion] = useState(occasions[0]);
 
-  const isDateValid = () => date !== "";
-  const isTimeValid = () => time !== "";
-  const isNumberOfGuestsValid = () => numberOfGuests !== "";
-  const isOccasionValid = () => occasion !== "";
-
   const areAllFieldsValid = () =>
-    isDateValid() &&
-    isTimeValid() &&
-    isNumberOfGuestsValid() &&
-    isOccasionValid();
+    isDateValid(date) &&
+    isTimeValid(time) &&
+    isNumberOfGuestsValid(numberOfGuests) &&
+    isOccasionValid(occasion);
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
@@ -117,6 +128,7 @@ const BookingForm = ({ availableTimes, dispatchOnDateChange, submitData }) => {
         </select>
       </FormField>
       <button
+        aria-label="Make your reservation"
         className="button-primary"
         type="submit"
         disabled={!areAllFieldsValid()}
